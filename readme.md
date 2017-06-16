@@ -1,141 +1,54 @@
-# electron-oauth2 [![Build Status](https://travis-ci.org/mawie81/electron-oauth2.svg?branch=master)](https://travis-ci.org/mawie81/electron-oauth2)
+# electron-oauth2-basecamp
 
-> A library to handle OAuth2 authentication for your [Electron](http://electron.atom.io) app.
+Native OAuth2 integration for Basecamp 3 in Electron.
 
+Forked from [electron-oauth2](https://github.com/mawie81/electron-oauth2).
 
-## Install
-
-```
-$ npm install --save electron-oauth2
-```
-
+Refer to the [Basecamp 3 API documentation](https://github.com/basecamp/bc3-api#authentication) for more information on how to use the response object.
 
 ## Usage
 
 ```js
-const electronOauth2 = require('electron-oauth2');
+const BasecampOAuth2 = require('electron-oauth2-basecamp');
 
-var config = {
-    clientId: 'CLIENT_ID',
-    clientSecret: 'CLIENT_SECRET',
-    authorizationUrl: 'AUTHORIZATION_URL',
-    tokenUrl: 'TOKEN_URL',
-    useBasicAuthorizationHeader: false,
-    redirectUri: 'http://localhost'
-};
+const basecampOAuth2 = new BasecampOAuth2({
+  clientID: YOUR_CLIENT_ID,
+  clientSecret: YOUR_CLIENT_SECRET,
+  redirectUri: YOUR_REDIRECT_URI,
+});
 
 app.on('ready', () => {
-  const windowParams = {
-    alwaysOnTop: true,
-    autoHideMenuBar: true,
-    webPreferences: {
-        nodeIntegration: false
-    }
-  }
+  basecampOAuth2.requestToken().then((response) => {
+    // {
+    //  access_token: 'xxxxxx',
+    //  expires_in: 1209600,
+    //  refresh_token: 'xxxxxx'
+    // }
+  });
 
-  const options = {
-    scope: 'SCOPE',
-    accessType: 'ACCESS_TYPE'
-  };
-
-  const myApiOauth = electronOauth2(config, windowParams);
-
-  myApiOauth.getAccessToken(options)
-    .then(token => {
-      // use your token.access_token
-
-      myApiOauth.refreshToken(token.refresh_token)
-        .then(newToken => {
-          //use your new token
-        });
-    });
 });
 ```
 
-
 ## API
 
-### electronOauth2(config, windowParams)
+### `BasecampOAuth2(<Object> options)`
 
-#### config
+Initialises the integration.
 
-Type: `Object`
+Requires the following options:
 
-##### Fields
+- `clientID` - Your application's client ID
+- `clientSecret` - Your application's client secret key
+- `redirectUri` - Your application's redirect URI
 
-###### authorizationUrl
-Type: `String`
-The URL for the authorization request.
+### `<Promise> BasecampOAuth2.requestToken()`
 
-###### tokenUrl
-Type: `String`
-The URL for the access token request.
+Request a new access token from Basecamp's OAuth2 module.
 
-###### clientId
-Type: `String`
-The OAuth2 client id.
+Returns a promise with the response body or the error.
 
-###### clientSecret
-Type: `String`
-The OAuth2 client secret.
+### `<Promise> BasecampOAuth2.refreshToken(<String> refreshToken)`
 
-###### useBasicAuthorizationHeader
-Type: `bool`
-If set to true, token requests will be made using a Basic authentication header instead of passing the client id and secret in the body.
+Refreshes the access token.
 
-###### redirectUri (optional)
-Type: `String`
-Sets a custom redirect_uri that can be required by some OAuth2 clients. 
-Default: ```urn:ietf:wg:oauth:2.0:oob```
-
-#### windowParams
-
-Type: `Object`
-
-An object that will be used to create the BrowserWindow. Details: [Electron BrowserWindow documention](https://github.com/atom/electron/blob/master/docs/api/browser-window.md)
-
-### Methods
-
-#### getAccessToken(options)
-
-Returns a ```Promise``` that gets resolved with the retrieved access token object if the authentication succeeds.
-
-##### options: *optional*
-
-###### scopes
-Type: `String`
-The optional OAuth2 scopes.
-
-###### accessType
-Type: `String`
-The optional OAuth2 access type.
-
-###### additionalTokenRequestData
-Type: `Object`
-The optional additional parameters to pass to the server in the body of the token request.
-
-#### getAuthorizationCode(options)
-
-Returns a ```Promise``` that gets resolved with the authorization code of the OAuth2 authorization request.
-
-##### options
-
-###### scope
-Type: `String`
-The optional OAuth2 scope.
-
-###### accessType
-Type: `String`
-The optional OAuth2 access type.
-
-#### refreshToken(token)
-
-Returns a ```Promise``` that gets resolved with the refreshed token object.
-
-##### token
-Type: `String`
-An OAuth2 refresh token.
-
-## License
-
-MIT © [Marcel Wiehle](http://marcel.wiehle.me)
+Returns a promise with the response body or the error. Requires a refresh token that can be received from the `requestToken()` response.
