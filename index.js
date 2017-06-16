@@ -17,7 +17,7 @@ module.exports = function (config, windowParams) {
     }
 
     var urlParams = {
-      response_type: 'code',
+      type: 'web_server',
       redirect_uri: config.redirectUri,
       client_id: config.clientId
     };
