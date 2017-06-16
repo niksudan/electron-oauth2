@@ -1,10 +1,16 @@
-# electron-oauth2-basecamp
+# electron-oauth2-basecamp [![npm](https://img.shields.io/npm/v/ftc.svg)](https://www.npmjs.com/package/electron-oauth2-basecamp)
 
 Native OAuth2 integration for Basecamp 3 in Electron.
 
 Forked from [electron-oauth2](https://github.com/mawie81/electron-oauth2).
 
 Refer to the [Basecamp 3 API documentation](https://github.com/basecamp/bc3-api#authentication) for more information on how to use the response object.
+
+## Installation
+
+```
+yarn add electron-oauth2-basecamp
+```
 
 ## Usage
 
