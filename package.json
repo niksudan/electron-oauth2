@@ -1,6 +1,6 @@
 {
   "name": "electron-oauth2-basecamp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Native OAuth2 integration for Basecamp 3 in Electron",
   "repository": {
     "type": "git",
