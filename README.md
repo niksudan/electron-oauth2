@@ -1,4 +1,4 @@
-# electron-oauth2-basecamp [![npm](https://img.shields.io/npm/v/ftc.svg)](https://www.npmjs.com/package/electron-oauth2-basecamp)
+# electron-oauth2-basecamp [![npm](https://img.shields.io/npm/v/electron-oauth2-basecamp.svg)](https://www.npmjs.com/package/electron-oauth2-basecamp)
 
 Native OAuth2 integration for Basecamp 3 in Electron.
 
