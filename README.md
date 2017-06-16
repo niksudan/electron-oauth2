@@ -31,7 +31,6 @@ app.on('ready', () => {
     //  refresh_token: 'xxxxxx'
     // }
   });
-
 });
 ```
 
