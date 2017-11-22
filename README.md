@@ -23,14 +23,13 @@ const basecampOAuth2 = new BasecampOAuth2({
   redirectUri: YOUR_REDIRECT_URI,
 });
 
-app.on('ready', () => {
-  basecampOAuth2.requestToken().then((response) => {
-    // {
-    //  access_token: 'xxxxxx',
-    //  expires_in: 1209600,
-    //  refresh_token: 'xxxxxx'
-    // }
-  });
+app.on('ready', async () => {
+  const response = await basecampOAuth2.requestToken();
+  // {
+  //  access_token: 'xxxxxx',
+  //  expires_in: 1209600,
+  //  refresh_token: 'xxxxxx'
+  // }
 });
 ```
 
@@ -52,7 +51,7 @@ Request a new access token from Basecamp's OAuth2 module.
 
 Returns a promise with the response body or the error.
 
-### `<Promise> BasecampOAuth2.refreshToken(<String> refreshToken)`
+### `<Promise> BasecampOAuth2.refreshToken(<string> refreshToken)`
 
 Refreshes the access token.
 
